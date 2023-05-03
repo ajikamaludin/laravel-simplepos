@@ -61,8 +61,8 @@ export default function Category(props) {
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={'Barang'}
-            action={'Kategori'}
+            page={'Kategori'}
+            action={''}
         >
             <Head title="Kategori" />
 

@@ -61,8 +61,8 @@ export default function Customer(props) {
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={'Kantor'}
-            action={'Pelanggan'}
+            page={'Pelanggan'}
+            action={''}
         >
             <Head title="Pelanggan" />
 
