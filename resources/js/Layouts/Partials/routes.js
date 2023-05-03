@@ -1,24 +1,9 @@
 import {
     HiChartPie,
     HiUser,
-    HiCollection,
-    HiAdjustments,
-    HiPlusCircle,
-    HiCurrencyDollar,
-    HiCash,
-    HiClipboardList,
-    HiHashtag,
     HiUsers,
     HiUserGroup,
-    HiUserCircle,
-    HiOutlineTruck,
-    HiDatabase,
-    HiShoppingBag,
-    HiReceiptTax,
-    HiHome,
-    HiInboxIn,
-    HiOutlineCash,
-    HiOutlineTable
+    HiViewList,
 } from "react-icons/hi";
 
 export default [
@@ -29,6 +14,14 @@ export default [
         route: route("dashboard"),
         active: "dashboard",
         permission: "view-dashboard",
+    },
+    {
+        name: "Kategori",
+        show: true,
+        icon: HiViewList,
+        route: route("category.index"),
+        active: "category.*",
+        permission: "view-category",
     },
     {
         name: "User",
