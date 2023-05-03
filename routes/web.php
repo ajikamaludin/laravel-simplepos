@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +48,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/customers', [CustomerController::class, 'store'])->name('customer.store');
     Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customer.update');
     Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+
+    // Product
+    Route::get('/products', [ProductController::class, 'index'])->name('product.index');
+    Route::post('/products', [ProductController::class, 'store'])->name('product.store');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 });
 
 Route::middleware('auth')->group(function () {
