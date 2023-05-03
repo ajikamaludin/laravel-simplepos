@@ -8,6 +8,7 @@ class Sale extends Model
         'code',
         'date',
         'customer_id',
+        'total'
     ];
 
     public function customer()

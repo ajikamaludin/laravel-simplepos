@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Input({ type = 'text', name, onChange, value, error = "", autoComplete = false, autoFocus = false, placeholder , className ,disabled, readOnly}) {
+export default function Input({ type = 'text', name, onChange, value, error = "", autoComplete = false, autoFocus = false, placeholder , className ,disabled, readOnly, min }) {
     return (
         <>
             <input 
@@ -14,6 +14,7 @@ export default function Input({ type = 'text', name, onChange, value, error = ""
                 placeholder={placeholder}
                 disabled={disabled}
                 readOnly={readOnly}
+                min={min}
             />
             {error && (
                 <p className="mb-2 text-sm text-red-600 dark:text-red-500">{error}</p>

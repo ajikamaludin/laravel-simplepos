@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +55,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/products', [ProductController::class, 'store'])->name('product.store');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+    // Sale
+    Route::get('/sales', [SaleController::class, 'index'])->name('sale.index');
+    Route::get('/sales/create', [SaleController::class, 'create'])->name('sale.create');
+    Route::post('/sales', [SaleController::class, 'store'])->name('sale.store');
+    Route::get('/sales/{sale}', [SaleController::class, 'show'])->name('sale.show');
+    Route::delete('/sales/{sale}', [SaleController::class, 'destroy'])->name('sale.destroy');
 });
 
 Route::middleware('auth')->group(function () {

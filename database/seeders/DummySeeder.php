@@ -21,7 +21,13 @@ class DummySeeder extends Seeder
             $category = Category::create(['name' => $cat]);
         }
 
-        foreach(['Roti Tawar', 'Indomie', 'Telur Omega 3'] as $prod) {
+        foreach([
+            'Roti Tawar', 
+            'Indomie', 
+            'Telur Omega 3',
+            'Enervonche',
+            'Teh Olong'
+        ] as $prod) {
             Product::create([
                 'code' => Str::upper(Str::random(6)),
                 'name' => $prod,

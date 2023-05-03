@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('code');
             $table->timestamp('date')->nullable();
             $table->uuid('customer_id')->nullable();
+            $table->decimal('total', 14, 2)->default(0);
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();

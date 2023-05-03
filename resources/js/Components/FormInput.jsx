@@ -1,7 +1,7 @@
 import React from "react";
 import Input from "./Input";
 
-export default function FormInput({ type, name, onChange, value, label, className, error, autoComplete, autoFocus, placeholder, disabled, readOnly}) {
+export default function FormInput({ type, name, onChange, value, label, className, error, autoComplete, autoFocus, placeholder, disabled, readOnly, min = null }) {
     return (
         <div className={className}>
             <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{label}</label>
@@ -16,6 +16,7 @@ export default function FormInput({ type, name, onChange, value, label, classNam
                 placeholder={placeholder}
                 disabled={disabled}
                 readOnly={readOnly}
+                min={min}
             />
         </div>
     )

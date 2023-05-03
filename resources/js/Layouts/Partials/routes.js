@@ -4,7 +4,7 @@ import {
     HiUsers,
     HiUserGroup,
     HiViewList,
-    HiCurrencyDollar,
+    HiOutlineCash,
 } from "react-icons/hi";
 
 export default [
@@ -19,10 +19,10 @@ export default [
     {
         name: "Transaksi Penjualan",
         show: true,
-        icon: HiCurrencyDollar,
-        route: route("category.index"),
-        active: "category.*",
-        permission: "view-category",
+        icon: HiOutlineCash,
+        route: route("sale.index"),
+        active: "sale.*",
+        permission: "view-sale",
     },
     {
         name: "Kategori",

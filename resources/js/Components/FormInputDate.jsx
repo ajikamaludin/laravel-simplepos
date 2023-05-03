@@ -2,7 +2,7 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import { converToDate, dateToString } from "@/utils";
 
-export default function FormInputDate({ selected, onChange, label = '', error }) {
+export default function FormInputDate({ selected, onChange, label = '', error, placeholder = '' }) {
     return (
         <div>
             {label !== '' && (
@@ -19,6 +19,7 @@ export default function FormInputDate({ selected, onChange, label = '', error })
                 previousMonthButtonLabel="<"
                 nextYearButtonLabel=">"
                 previousYearButtonLabel="<"
+                placeholderText={placeholder}
             />
             {error && (
                 <p className="mb-2 text-sm text-red-600 dark:text-red-500">{error}</p>
