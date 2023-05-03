@@ -64,6 +64,16 @@ class SaleController extends Controller
                 "cost" => $item['cost'],
                 "quantity" => $item['qty'],
             ]);
+
+            $product = Product::where('id', $item['id'])->first(); 
+            $stock = $product->stock - $item['qty'];
+            if ($stock < 0) {
+                DB::rollBack();
+
+                return redirect()->back()
+                    ->with('message', ['type' => 'error', 'message' => 'Stok barang tidak cukup']);
+            }
+            $product->update(['stock' => $stock]);
         }
         DB::commit();
 
