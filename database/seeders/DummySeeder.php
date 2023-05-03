@@ -23,7 +23,7 @@ class DummySeeder extends Seeder
 
         foreach(['Roti Tawar', 'Indomie', 'Telur Omega 3'] as $prod) {
             Product::create([
-                'code' => Str::random(6),
+                'code' => Str::upper(Str::random(6)),
                 'name' => $prod,
                 'price' => rand(1000,10000),
                 'cost' => rand(1000,10000),
@@ -34,7 +34,7 @@ class DummySeeder extends Seeder
 
         foreach (['Customer A', 'Customer B'] as $cust) {
             Customer::create([
-                'code' => Str::random(6),
+                'code' => Str::upper(Str::random(6)),
                 'name' => $cust,
             ]);
         }

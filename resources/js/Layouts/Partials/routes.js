@@ -24,6 +24,14 @@ export default [
         permission: "view-category",
     },
     {
+        name: "Pelangan",
+        show: true,
+        icon: HiViewList,
+        route: route("customer.index"),
+        active: "customer.*",
+        permission: "view-customer",
+    },
+    {
         name: "User",
         show: true,
         icon: HiUser,

@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/categories', [CategoryController::class, 'store'])->name('category.store');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+
+    // Customer
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
+    Route::post('/customers', [CustomerController::class, 'store'])->name('customer.store');
+    Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customer.update');
+    Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
 });
 
 Route::middleware('auth')->group(function () {

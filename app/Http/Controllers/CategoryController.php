@@ -12,7 +12,7 @@ class CategoryController extends Controller
         $query = Category::query();
 
         if ($request->q) {
-            $query->where('name', 'ilike', "%{$request->q}%");
+            $query->where('name', 'like', "%{$request->q}%");
         }
 
         $query->orderBy('created_at', 'desc');
