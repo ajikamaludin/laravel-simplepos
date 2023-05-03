@@ -30,6 +30,27 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'Update Role', 'name' => 'update-role'],
             ['id' => Str::uuid(), 'label' => 'View Role', 'name' => 'view-role'],
             ['id' => Str::uuid(), 'label' => 'Delete Role', 'name' => 'delete-role'],
+
+            ['id' => Str::uuid(), 'label' => 'Create Customer', 'name' => 'create-customer'],
+            ['id' => Str::uuid(), 'label' => 'Update Customer', 'name' => 'update-customer'],
+            ['id' => Str::uuid(), 'label' => 'View Customer', 'name' => 'view-customer'],
+            ['id' => Str::uuid(), 'label' => 'Delete Customer', 'name' => 'delete-customer'],
+
+            ['id' => Str::uuid(), 'label' => 'Create Category', 'name' => 'create-category'],
+            ['id' => Str::uuid(), 'label' => 'Update Category', 'name' => 'update-category'],
+            ['id' => Str::uuid(), 'label' => 'View Category', 'name' => 'view-category'],
+            ['id' => Str::uuid(), 'label' => 'Delete Category', 'name' => 'delete-category'],
+
+            ['id' => Str::uuid(), 'label' => 'Create Product', 'name' => 'create-product'],
+            ['id' => Str::uuid(), 'label' => 'Update Product', 'name' => 'update-product'],
+            ['id' => Str::uuid(), 'label' => 'View Product', 'name' => 'view-product'],
+            ['id' => Str::uuid(), 'label' => 'Delete Product', 'name' => 'delete-product'],
+
+            ['id' => Str::uuid(), 'label' => 'Create Sale', 'name' => 'create-sale'],
+            ['id' => Str::uuid(), 'label' => 'Update Sale', 'name' => 'update-sale'],
+            ['id' => Str::uuid(), 'label' => 'View Sale', 'name' => 'view-sale'],
+            ['id' => Str::uuid(), 'label' => 'Delete Sale', 'name' => 'delete-sale'],
+            
         ];
 
         foreach($permissions as $permission) {
