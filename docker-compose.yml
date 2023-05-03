@@ -1,0 +1,64 @@
+version: "3.7"
+services:
+  app:
+      build:
+        args:
+          user: aji
+          uid: 1000
+        context: ./
+        dockerfile: ./Dockerfile
+      image: simplepos
+      container_name: simplepos-app
+      working_dir: /var/www/
+      volumes:
+        - ./:/var/www
+        - ./user.ini:/usr/local/etc/php/php.ini
+        - "/etc/timezone:/etc/timezone:ro"
+        - "/etc/localtime:/etc/localtime:ro"
+      mem_limit: 512m
+      mem_reservation: 128M
+      cpus: 0.5
+      networks:
+        - simplepos
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: simplepos-nginx
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
+    networks:
+      - simplepos
+  nodejs:
+    image: node:16-alpine
+    container_name: simplepos-node
+    ports:
+      - 5173:5173
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www
+    entrypoint: ["npm","run", "dev"]
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
+    networks:
+      - simplepos
+
+volumes:
+  mariadb: 
+    driver: local
+  postgres:
+    driver: local
+
+networks:
+  simplepos:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+          - subnet: 10.18.0.0/24
+            gateway: 10.18.0.1
