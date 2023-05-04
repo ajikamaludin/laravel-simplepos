@@ -18,7 +18,7 @@ class SaleController extends Controller
             $query->where('code', 'like', "%{$request->q}%");
         }
 
-        $query->orderBy('created_at', 'desc');
+        $query->orderBy('date', 'desc');
         
         return inertia('Sale/Index', [
             'query' => $query->paginate(10),
