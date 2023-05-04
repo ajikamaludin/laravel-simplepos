@@ -30,8 +30,8 @@ export default function Dashboard(props) {
         labels: sale_days.map((item) => item.date),
         datasets: [
             {
-                label: 'Sales',
-                data: sale_days.map((item) => item.count),
+                label: 'Penjualan',
+                data: sale_days.map((item) => item.stotal),
                 // backgroundColor: 'rgb(87, 13, 248, 0.5)', //rgb(87, 13, 248, 0.5) //rgba(255, 99, 132, 0.5)
                 backgroundColor: [
                     'rgba(201, 203, 207, 1)',

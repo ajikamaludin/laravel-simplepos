@@ -29,7 +29,7 @@ class GeneralController extends Controller
             $endDate = Carbon::parse($request->end_date)->format('m/d/Y');
         }
 
-        $charts = Sale::selectRaw('COUNT(id) as count, date')
+        $charts = Sale::selectRaw('SUM(total) as stotal, date')
                 ->whereBetween('date', [$startDate, $endDate])
                 ->orderBy('date', 'asc')
                 ->groupBy('date')
