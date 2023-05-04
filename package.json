@@ -20,15 +20,17 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "chart.js": "^4.3.0",
         "flowbite": "^1.6.3",
         "flowbite-react": "^0.3.8",
-        "react-icons": "^4.7.1",
         "is": "^3.3.0",
         "moment": "^2.29.4",
         "momentjs": "^2.0.0",
         "nprogress": "^0.2.0",
         "qs": "^6.11.0",
+        "react-chartjs-2": "^5.2.0",
         "react-datepicker": "^4.8.0",
+        "react-icons": "^4.7.1",
         "react-number-format": "^5.1.2",
         "react-toastify": "^9.1.1",
         "react-use": "^17.4.0"
