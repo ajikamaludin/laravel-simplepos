@@ -80,4 +80,27 @@ class SaleController extends Controller
         return redirect()->route('sale.index')
             ->with('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
+
+    public function show(Sale $sale) 
+    {
+        return inertia('Sale/Show', [
+            'sale' => $sale->load(['items.product', 'customer']),
+        ]);
+    }
+
+    public function destroy(Sale $sale)
+    {
+        DB::beginTransaction();
+
+        foreach ($sale->items as $item) {
+            $item->product->update(['stock' => $item->product->stock + $item->quantity]);
+        }
+        $sale->items()->delete();
+        $sale->delete();
+
+        DB::commit();
+
+        return redirect()->route('sale.index')
+            ->with('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
+    }
 }

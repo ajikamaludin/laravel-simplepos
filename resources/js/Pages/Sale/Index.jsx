@@ -3,7 +3,7 @@ import { router } from '@inertiajs/react';
 import { usePrevious } from 'react-use';
 import { Head } from '@inertiajs/react';
 import { Button, Dropdown } from 'flowbite-react';
-import { HiEye, HiPencil, HiTrash } from 'react-icons/hi';
+import { HiEye, HiTrash } from 'react-icons/hi';
 import { useModalState } from '@/hooks';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -22,6 +22,10 @@ export default function Sale(props) {
 
     const toggleFormModal = () => {
         router.get(route('sale.create'))
+    }
+
+    const viewDetail = (sale) => {
+        router.get(route('sale.show', sale))
     }
 
     const handleDeleteClick = (sale) => {
@@ -121,7 +125,7 @@ export default function Sale(props) {
                                                         size={'sm'}
                                                     >
                                                         {canUpdate && (
-                                                            <Dropdown.Item onClick={() => toggleFormModal(sale)}>
+                                                            <Dropdown.Item onClick={() => viewDetail(sale)}>
                                                                 <div className='flex space-x-1 items-center'>
                                                                     <HiEye/> 
                                                                     <div>Detail</div>
