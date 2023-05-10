@@ -17,6 +17,7 @@ This is a simple POS app built with laravel , inertiajs , react , tailwindcss wi
 cp .env.example .env # configure app for laravel
 touch database/database.sqlite # if you use .env.example with default sqlite database
 composer install
+php artisan migrate --seed
 npm install
 npm run dev # compiling asset for development
 ```
