@@ -1,14 +1,15 @@
 # Laravel Simple POS
 
 This is a simple POS app built with laravel , inertiajs , react , tailwindcss with flowbite
+
 ## Support me
 
 <a href="https://trakteer.id/ajikamaludin" target="_blank"><img id="wse-buttons-preview" src="https://cdn.trakteer.id/images/embed/trbtn-blue-2.png" height="40" style="border:0px;height:40px;" alt="Trakteer Saya"></a>
 
 ## Requirements
 
-- PHP 8.1 or latest
-- Node 16+ or latest
+-   PHP 8.1 or latest
+-   Node 16+ or latest
 
 ## How to run
 
@@ -31,4 +32,10 @@ password : password
 
 ```bash
 npm run build
+```
+
+## Rsync
+
+```bash
+rsync -arP -e 'ssh -p 224' --exclude=node_modules --exclude=.git --exclude=storage/logs --exclude=public/hot . arm@ajikamaludin.id:/home/arm/projects/simple-pos
 ```
