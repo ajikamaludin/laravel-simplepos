@@ -30,10 +30,24 @@ class GeneralController extends Controller
         }
 
         $charts = Sale::selectRaw('SUM(total) as stotal, date')
-                ->whereBetween('date', [$startDate, $endDate])
-                ->orderBy('date', 'asc')
-                ->groupBy('date')
-                ->get();
+            ->whereBetween('date', [$startDate, $endDate])
+            ->orderBy('date', 'asc')
+            ->groupBy('date')
+            ->get();
+
+        // $dounat = SaleItem::selectRaw('product_id, SUM(quantity) as qty')
+        //     ->with('product.category')
+        //     ->join('products', 'products.id', '=', 'sale_items.product_id')
+        //     ->groupBy('sale_items.product_id')
+        //     ->get();
+
+        $dounat = SaleItem::selectRaw('product_id, SUM(quantity) as qty')
+            ->with('product.category')
+            ->join('products', 'products.id', '=', 'sale_items.product_id')
+            ->join('sales', 'sales.id', '=', 'sale_items.sale_id')
+            ->whereBetween('sales.date', [now()->startOfMonth()->format('m/d/Y'), now()->endOfMonth()->format('m/d/Y')])
+            ->groupBy('sale_items.product_id')
+            ->get();
 
         $favoriteProducts = SaleItem::selectRaw('product_id, sum(quantity) as qty')
             ->groupBy('product_id')
@@ -54,6 +68,7 @@ class GeneralController extends Controller
             'total_product' => $totalProduct,
             'total_customer' => $totalCustomer,
             'sale_days' => $charts,
+            'favorite_categories' => $dounat,
             'list_favorite_product' => $favoriteProducts,
             'list_customer' => $transactionCustomers
         ]);
