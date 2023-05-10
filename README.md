@@ -34,6 +34,11 @@ password : password
 npm run build
 ```
 
+## Screenshot
+
+![image1](1.png?raw=true)
+![image2](2.png?raw=true)
+
 ## Rsync
 
 ```bash
