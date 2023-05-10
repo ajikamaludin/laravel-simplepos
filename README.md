@@ -37,5 +37,5 @@ npm run build
 ## Rsync
 
 ```bash
-rsync -arP -e 'ssh -p 224' --exclude=node_modules --exclude=.git --exclude=storage/logs --exclude=public/hot . arm@ajikamaludin.id:/home/arm/projects/simple-pos
+rsync -arP -e 'ssh -p 224' --exclude=node_modules --exclude=.git --exclude=.env --exclude=storage/logs --exclude=public/hot . arm@ajikamaludin.id:/home/arm/projects/simple-pos
 ```
