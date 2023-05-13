@@ -17,7 +17,9 @@ class GeneralController extends Controller
         $totalItem = SaleItem::whereHas('sale', function ($q) {
             return $q->where('date', now()->format('m/d/Y'));
         })->sum('quantity');
-        $totalProduct = Product::count();
+        $totalItemPrice = SaleItem::whereHas('sale', function ($q) {
+            return $q->where('date', now()->format('m/d/Y'));
+        })->sum('price');
         $totalCustomer = Customer::count();
 
         $startDate = now()->subDays(6)->format('m/d/Y');
@@ -65,7 +67,7 @@ class GeneralController extends Controller
         return inertia('Dashboard', [
             'total_sale_today' => $totalSaleToday,
             'total_item_today' => $totalItem,
-            'total_product' => $totalProduct,
+            'total_item_price_today' => $totalItemPrice,
             'total_customer' => $totalCustomer,
             'sale_days' => $charts,
             'favorite_categories' => $dounat,

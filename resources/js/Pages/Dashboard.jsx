@@ -28,7 +28,7 @@ export default function Dashboard(props) {
     const {
         total_sale_today,
         total_item_today,
-        total_product,
+        total_item_price_today,
         total_customer,
         sale_days,
         list_favorite_product,
@@ -50,13 +50,13 @@ export default function Dashboard(props) {
                 data: sale_days.map((item) => item.stotal),
                 // backgroundColor: 'rgb(87, 13, 248, 0.5)', //rgb(87, 13, 248, 0.5) //rgba(255, 99, 132, 0.5)
                 backgroundColor: [
-                    'rgba(201, 203, 207, 1)',
-                    'rgba(255, 159, 64, 1)',
+                    // 'rgba(201, 203, 207, 1)',
+                    // 'rgba(255, 159, 64, 1)',
                     'rgba(255, 205, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 99, 132, 1)',
+                    // 'rgba(75, 192, 192, 1)',
+                    // 'rgba(54, 162, 235, 1)',
+                    // 'rgba(153, 102, 255, 1)',
+                    // 'rgba(255, 99, 132, 1)',
                 ],
             },
         ],
@@ -149,13 +149,16 @@ export default function Dashboard(props) {
                                 Hari Ini
                             </div>
                             <div className="text-3xl font-bold">
-                                {total_item_today}
+                                Rp. {formatIDR(total_item_price_today)}
                             </div>
                         </div>
                         <div className="p-4 overflow-hidden shadow sm:rounded-lg bg-white">
-                            <div className="text-xl">Jumlah Barang</div>
+                            <div className="text-xl">
+                                Jumlah Barang Terjual <br />
+                                Hari Ini
+                            </div>
                             <div className="text-3xl font-bold">
-                                {total_product}
+                                {total_item_today}
                             </div>
                         </div>
                         <div className="p-4 overflow-hidden shadow sm:rounded-lg bg-white">
@@ -179,7 +182,7 @@ export default function Dashboard(props) {
                         </div>
                         <div className="overflow-auto bg-white p-4">
                             <div className="text-xl pb-4">
-                                Top Product of The Month
+                                Produk Paling laku terjual
                             </div>
                             <Doughnut
                                 data={dataDounat}
