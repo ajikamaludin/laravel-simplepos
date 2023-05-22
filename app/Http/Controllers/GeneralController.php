@@ -14,6 +14,11 @@ class GeneralController extends Controller
     public function index(Request $request)
     {
         $totalSaleToday = Sale::where('date', now()->format('m/d/Y'))->count();
+        $totalSaleMonth = Sale::whereBetween('date', [
+            now()->startOfMonth()->format('m/d/Y'),
+            now()->endOfMonth()->format('m/d/Y')
+        ])->sum('total');
+
         $totalItem = SaleItem::whereHas('sale', function ($q) {
             return $q->where('date', now()->format('m/d/Y'));
         })->sum('quantity');
@@ -72,7 +77,9 @@ class GeneralController extends Controller
             'sale_days' => $charts,
             'favorite_categories' => $dounat,
             'list_favorite_product' => $favoriteProducts,
-            'list_customer' => $transactionCustomers
+            'list_customer' => $transactionCustomers,
+            'month' => 'Mei',
+            'total_sale_month' => $totalSaleMonth,
         ]);
     }
 

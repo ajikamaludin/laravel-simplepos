@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -18,10 +19,26 @@ class SaleController extends Controller
             $query->where('code', 'like', "%{$request->q}%");
         }
 
+        $startDate = now()->startOfMonth()->format('m/d/Y');
+        $endDate = now()->endOfMonth()->format('m/d/Y');
+
+        if ($request->startDate != '' && $request->endDate != '') {
+            $startDate = Carbon::parse($request->startDate)->format('m/d/Y');
+            $endDate = Carbon::parse($request->endDate)->format('m/d/Y');
+        }
+
+        $query->whereBetween('date', [$startDate, $endDate]);
+
+        if ($request->customer_id != '') {
+            $query->where('customer_id', $request->customer_id);
+        }
+
         $query->orderBy('date', 'desc');
-        
+
         return inertia('Sale/Index', [
             'query' => $query->paginate(10),
+            '_startDate' => $startDate,
+            '_endDate' => $endDate
         ]);
     }
 
@@ -50,14 +67,17 @@ class SaleController extends Controller
         ]);
 
         DB::beginTransaction();
+
+        $code = 'INV' . now()->format('dmY') . '-' . Sale::where('date', now()->format('m/d/Y'))->count();
+
         $sale = Sale::create([
-            'code' => Str::upper(Str::random(6)),
-            'date' => $request->date, 
+            'code' => $code,
+            'date' => $request->date,
             'customer_id' => $request->customer_id,
             'total' => collect($request->items)->sum(fn ($item) => $item['qty'] * $item['price'])
         ]);
 
-        foreach($request->items as $item) {
+        foreach ($request->items as $item) {
             $sale->items()->create([
                 "product_id" => $item['id'],
                 "price" => $item['price'],
@@ -65,7 +85,7 @@ class SaleController extends Controller
                 "quantity" => $item['qty'],
             ]);
 
-            $product = Product::where('id', $item['id'])->first(); 
+            $product = Product::where('id', $item['id'])->first();
             $stock = $product->stock - $item['qty'];
             if ($stock < 0) {
                 DB::rollBack();
@@ -81,7 +101,7 @@ class SaleController extends Controller
             ->with('message', ['type' => 'success', 'message' => 'Item has beed saved']);
     }
 
-    public function show(Sale $sale) 
+    public function show(Sale $sale)
     {
         return inertia('Sale/Show', [
             'sale' => $sale->load(['items.product', 'customer']),

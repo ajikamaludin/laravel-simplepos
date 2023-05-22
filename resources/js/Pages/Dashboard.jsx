@@ -34,6 +34,8 @@ export default function Dashboard(props) {
         list_favorite_product,
         list_customer,
         favorite_categories,
+        month,
+        total_sale_month,
     } = props
 
     const options = {
@@ -137,10 +139,10 @@ export default function Dashboard(props) {
                         <div className="p-4 overflow-hidden shadow sm:rounded-lg bg-white">
                             <div className="text-xl">
                                 Total Penjualan <br />
-                                Hari Ini
+                                Bulan {month}
                             </div>
                             <div className="text-3xl font-bold">
-                                {total_sale_today}
+                                Rp. {formatIDR(total_sale_month)}
                             </div>
                         </div>
                         <div className="p-4 overflow-hidden shadow sm:rounded-lg bg-white">
