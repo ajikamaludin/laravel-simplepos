@@ -78,7 +78,7 @@ class GeneralController extends Controller
             'favorite_categories' => $dounat,
             'list_favorite_product' => $favoriteProducts,
             'list_customer' => $transactionCustomers,
-            'month' => 'Mei',
+            'month' => now()->locale('id')->translatedFormat('F'),
             'total_sale_month' => $totalSaleMonth,
         ]);
     }
