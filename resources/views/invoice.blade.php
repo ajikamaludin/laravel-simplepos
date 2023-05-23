@@ -100,7 +100,7 @@
             <table class="w-full">
                 <tbody>
                     <tr>
-                        <td class="border border-black font-bold p-1">NO.</td>
+                        <td class="border border-black font-bold p-1 w-[10px]">NO.</td>
                         <td class="border border-black font-bold p-1">KETERANGAN</td>
                         <td class="border border-black font-bold p-1 text-right w-1/6">QTY</td>
                         <td class="border border-black font-bold p-1 text-right w-1/6">HARGA SATUAN (Rp.)</td>
