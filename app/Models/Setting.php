@@ -11,9 +11,14 @@ class Setting extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
-    protected $fillalble = [
+    protected $fillable = [
         'key',
         'value',
         'type',
     ];
+
+    public static function getValue($key)
+    {
+        return Setting::where('key', $key)->value('value');
+    }
 }

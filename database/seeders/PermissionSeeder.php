@@ -50,17 +50,18 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'Update Sale', 'name' => 'update-sale'],
             ['id' => Str::uuid(), 'label' => 'View Sale', 'name' => 'view-sale'],
             ['id' => Str::uuid(), 'label' => 'Delete Sale', 'name' => 'delete-sale'],
-            
+
+            ['id' => Str::uuid(), 'label' => 'View Setting', 'name' => 'view-setting'],
         ];
 
-        foreach($permissions as $permission) {
+        foreach ($permissions as $permission) {
             Permission::insert($permission);
         }
 
         $role = Role::create(['name' => 'admin']);
 
         $permissions = Permission::all();
-        foreach($permissions as $permission) {
+        foreach ($permissions as $permission) {
             $role->rolePermissions()->create(['permission_id' => $permission->id]);
         }
 
@@ -77,8 +78,7 @@ class PermissionSeeder extends Seeder
             'role_id' => $role->id,
         ]);
 
-        $setting = [
-        ];
+        $setting = [];
 
         Setting::insert($setting);
     }

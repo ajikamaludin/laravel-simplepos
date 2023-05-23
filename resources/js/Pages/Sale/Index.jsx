@@ -149,6 +149,10 @@ export default function Sale(props) {
                                                 scope="col"
                                                 className="py-3 px-6"
                                             />
+                                            <th
+                                                scope="col"
+                                                className="py-3 px-6"
+                                            />
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -171,6 +175,18 @@ export default function Sale(props) {
                                                 </td>
                                                 <td className="py-4 px-6">
                                                     {formatIDR(sale.total)}
+                                                </td>
+                                                <td>
+                                                    <a
+                                                        href={route(
+                                                            'sale.invoice',
+                                                            sale
+                                                        )}
+                                                        target="_blank"
+                                                        className="text-blue-600 underline"
+                                                    >
+                                                        Invoice
+                                                    </a>
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown

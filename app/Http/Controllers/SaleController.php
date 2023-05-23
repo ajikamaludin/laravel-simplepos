@@ -124,4 +124,11 @@ class SaleController extends Controller
         return redirect()->route('sale.index')
             ->with('message', ['type' => 'success', 'message' => 'Item has beed deleted']);
     }
+
+    public function invoice(Sale $sale)
+    {
+        return view('invoice', [
+            'sale' => $sale->load(['customer', 'items.product'])
+        ]);
+    }
 }

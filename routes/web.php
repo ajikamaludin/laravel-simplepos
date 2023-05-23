@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,6 +63,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/sales', [SaleController::class, 'store'])->name('sale.store');
     Route::get('/sales/{sale}', [SaleController::class, 'show'])->name('sale.show');
     Route::delete('/sales/{sale}', [SaleController::class, 'destroy'])->name('sale.destroy');
+    Route::get('/sales/{sale}/invoice', [SaleController::class, 'invoice'])->name('sale.invoice');
+
+    // Setting
+    Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
+    Route::post('/setting', [SettingController::class, 'update'])->name('setting.update');
 });
 
 Route::middleware('auth')->group(function () {
@@ -70,4 +76,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
