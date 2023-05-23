@@ -68,7 +68,8 @@ class SaleController extends Controller
 
         DB::beginTransaction();
 
-        $code = 'INV' . now()->format('dmY') . '-' . Sale::where('date', now()->format('m/d/Y'))->count();
+        $date = Carbon::parse($request->date);
+        $code = 'INV' . $date->format('dmY') . '-' . Sale::where('date', $date->format('m/d/Y'))->count() + 1;
 
         $sale = Sale::create([
             'code' => $code,
