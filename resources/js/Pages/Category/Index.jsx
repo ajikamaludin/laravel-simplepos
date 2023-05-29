@@ -61,10 +61,10 @@ export default function Category(props) {
             auth={props.auth}
             errors={props.errors}
             flash={props.flash}
-            page={'Kategori'}
+            page={'Kategori Produk'}
             action={''}
         >
-            <Head title="Kategori" />
+            <Head title="Kategori Produk" />
 
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8 ">

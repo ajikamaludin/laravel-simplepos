@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleItem;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -41,25 +42,23 @@ class GeneralController extends Controller
             ->orderBy('date', 'asc')
             ->groupBy('date')
             ->get();
+        $target = (Setting::where('key', 'target')->value('value') ?? 90000) / 30;
 
-        // $dounat = SaleItem::selectRaw('product_id, SUM(quantity) as qty')
-        //     ->with('product.category')
-        //     ->join('products', 'products.id', '=', 'sale_items.product_id')
-        //     ->groupBy('sale_items.product_id')
-        //     ->get();
-
-        $dounat = SaleItem::selectRaw('product_id, SUM(quantity) as qty')
+        $dounat = SaleItem::selectRaw('product_id, category_id, SUM(quantity) as qty')
             ->with('product.category')
             ->join('products', 'products.id', '=', 'sale_items.product_id')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
             ->join('sales', 'sales.id', '=', 'sale_items.sale_id')
             ->whereBetween('sales.date', [now()->startOfMonth()->format('m/d/Y'), now()->endOfMonth()->format('m/d/Y')])
-            ->groupBy('sale_items.product_id')
+            ->groupBy('products.category_id')
             ->get();
 
         $favoriteProducts = SaleItem::selectRaw('product_id, sum(quantity) as qty')
-            ->groupBy('product_id')
-            ->orderBy('qty', 'desc')
             ->with('product')
+            ->join('sales', 'sales.id', '=', 'sale_items.sale_id')
+            ->whereBetween('sales.date', [now()->startOfMonth()->format('m/d/Y'), now()->endOfMonth()->format('m/d/Y')])
+            ->orderBy('qty', 'desc')
+            ->groupBy('product_id')
             ->get();
 
         $transactionCustomers = Sale::selectRaw('customer_id, sum(total) as stotal')
@@ -80,6 +79,7 @@ class GeneralController extends Controller
             'list_customer' => $transactionCustomers,
             'month' => now()->locale('id')->translatedFormat('F'),
             'total_sale_month' => $totalSaleMonth,
+            'targets' => [$target, $target, $target, $target, $target, $target, $target, $target]
         ]);
     }
 

@@ -12,6 +12,7 @@ import Pagination from '@/Components/Pagination'
 import FormInput from '@/Components/FormInput'
 import CustomerSelectionInput from '../Customer/SelectionInput'
 import { Spinner } from 'flowbite-react'
+import TextArea from '@/Components/TextArea'
 
 export default function Sale(props) {
     const {
@@ -27,6 +28,7 @@ export default function Sale(props) {
         date: dateToString(new Date()),
         customer_id: null,
         items: [],
+        note: '',
     })
 
     const addItem = (product) => {
@@ -69,13 +71,13 @@ export default function Sale(props) {
         post(route('sale.store'))
     }
 
-    const params = { q: search, page: _page }
+    const params = { q: search }
     useEffect(() => {
         if (preValue) {
             setLoading(true)
             router.get(
                 route(route().current()),
-                { q: search, page: _page },
+                { q: search },
                 {
                     replace: true,
                     preserveState: true,
@@ -116,7 +118,7 @@ export default function Sale(props) {
                                 <Spinner size="xl" />
                             </div>
                         ) : (
-                            <div className="grid grid-cols-4 gap-2 text-center">
+                            <div className="grid grid-cols-4 gap-2 text-center h-[320px]">
                                 {products.map((item) => (
                                     <div
                                         className="rounded bg-gray-300 hover:bg-gray-200 shadow-lg px-4 py-2 flex flex-col justify-between"
@@ -137,6 +139,16 @@ export default function Sale(props) {
                             <div className="mx-auto w-fit">
                                 <Pagination links={links} params={params} />
                             </div>
+                        </div>
+                        <div className="w-full mt-4">
+                            <TextArea
+                                value={data.note}
+                                onChange={(e) =>
+                                    setData('note', e.target.value)
+                                }
+                                rows={4}
+                                placeholder="Catatan"
+                            />
                         </div>
                     </div>
                     <div className="w-full md:w-5/12 flex flex-col">
@@ -203,6 +215,16 @@ export default function Sale(props) {
                         >
                             Simpan
                         </Button>
+                    </div>
+                </div>
+                <div className="flex flex-row p-6 shadow-sm sm:rounded-lg bg-white w-full space-x-2 mt-2 invisible">
+                    <div className="w-full">
+                        <TextArea
+                            value={data.note}
+                            onChange={(e) => setData('note', e.target.value)}
+                            rows={4}
+                            label="Catatan"
+                        />
                     </div>
                 </div>
             </div>

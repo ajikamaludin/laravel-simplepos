@@ -4,10 +4,11 @@ import FormInput from '@/Components/FormInput'
 import Button from '@/Components/Button'
 import { Head, useForm } from '@inertiajs/react'
 import TextArea from '@/Components/TextArea'
+import { isEmpty } from 'lodash'
 
 const extractValue = (set, key) => {
     const find = set.find((s) => s.key === key)
-    if (find !== null) {
+    if (isEmpty(find) === false) {
         if (find.type === 'image') {
             return find?.url
         }
@@ -22,6 +23,7 @@ export default function Setting(props) {
     const { data, setData, post, processing, errors } = useForm({
         name: extractValue(setting, 'name'),
         detail: extractValue(setting, 'detail'),
+        target: extractValue(setting, 'target'),
     })
 
     const handleOnChange = (event) => {
@@ -67,6 +69,14 @@ export default function Setting(props) {
                             label="Detail (address, phone etc)"
                             rows={8}
                             error={errors.detail}
+                        />
+                        <FormInput
+                            type="number"
+                            name="target"
+                            value={data.target}
+                            onChange={handleOnChange}
+                            label="Target Bulanan"
+                            error={errors.target}
                         />
                         <div className="mt-2">
                             <Button

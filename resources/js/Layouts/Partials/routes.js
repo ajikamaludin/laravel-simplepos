@@ -27,7 +27,7 @@ export default [
         permission: 'view-sale',
     },
     {
-        name: 'Kategori',
+        name: 'Kategori Produk',
         show: true,
         icon: HiViewList,
         route: route('category.index'),
@@ -35,7 +35,7 @@ export default [
         permission: 'view-category',
     },
     {
-        name: 'Barang',
+        name: 'Produk',
         show: true,
         icon: HiViewList,
         route: route('product.index'),

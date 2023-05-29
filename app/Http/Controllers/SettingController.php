@@ -19,7 +19,8 @@ class SettingController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'detail' => 'required|string'
+            'detail' => 'required|string',
+            'target' => 'required|numeric|min:1'
         ]);
 
         DB::beginTransaction();

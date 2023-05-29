@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
-import Modal from "@/Components/Modal";
-import { useForm } from "@inertiajs/react";
-import Button from "@/Components/Button";
-import FormInput from "@/Components/FormInput";
+import React, { useEffect } from 'react'
+import Modal from '@/Components/Modal'
+import { useForm } from '@inertiajs/react'
+import Button from '@/Components/Button'
+import FormInput from '@/Components/FormInput'
 
 export default function FormModal(props) {
     const { modalState } = props
-    const { data, setData, post, put, processing, errors, reset, clearErrors } = useForm({
-        name: '',
-    })
+    const { data, setData, post, put, processing, errors, reset, clearErrors } =
+        useForm({
+            name: '',
+        })
 
     const handleOnChange = (event) => {
         setData(event.target.name, event.target.value)
@@ -27,14 +28,14 @@ export default function FormModal(props) {
 
     const handleSubmit = () => {
         const category = modalState.data
-        if(category !== null) {
+        if (category !== null) {
             put(route('category.update', category), {
-                onSuccess: () => handleClose()
+                onSuccess: () => handleClose(),
             })
             return
-        } 
+        }
         post(route('category.store'), {
-            onSuccess: () => handleClose()
+            onSuccess: () => handleClose(),
         })
     }
 
@@ -44,7 +45,7 @@ export default function FormModal(props) {
             setData({
                 name: category?.name,
             })
-            return 
+            return
         }
     }, [modalState])
 
@@ -52,7 +53,7 @@ export default function FormModal(props) {
         <Modal
             isOpen={modalState.isOpen}
             toggle={handleClose}
-            title={"Kategori"}
+            title={'Kategori Produk'}
         >
             <FormInput
                 name="name"
@@ -62,16 +63,10 @@ export default function FormModal(props) {
                 error={errors.name}
             />
             <div className="flex items-center">
-                <Button
-                    onClick={handleSubmit}
-                    processing={processing} 
-                >
+                <Button onClick={handleSubmit} processing={processing}>
                     Simpan
                 </Button>
-                <Button
-                    onClick={handleClose}
-                    type="secondary"
-                >
+                <Button onClick={handleClose} type="secondary">
                     Batal
                 </Button>
             </div>

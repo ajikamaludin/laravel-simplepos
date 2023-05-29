@@ -1,24 +1,32 @@
-import React, { useEffect } from "react";
-import Modal from "@/Components/Modal";
-import { useForm } from "@inertiajs/react";
-import Button from "@/Components/Button";
-import FormInput from "@/Components/FormInput";
-import { isEmpty } from "lodash";
-import CategorySelectionInput from '../Category/SelectionInput';
+import React, { useEffect } from 'react'
+import Modal from '@/Components/Modal'
+import { useForm } from '@inertiajs/react'
+import Button from '@/Components/Button'
+import FormInput from '@/Components/FormInput'
+import { isEmpty } from 'lodash'
+import CategorySelectionInput from '../Category/SelectionInput'
 
 export default function FormModal(props) {
     const { modalState } = props
 
-    const { data, setData, post, put, processing, errors, reset, clearErrors } = useForm({
-        name: '',
-        price: 0,
-        cost: 0,
-        stock: 0,
-        category_id: null,
-    })
+    const { data, setData, post, put, processing, errors, reset, clearErrors } =
+        useForm({
+            name: '',
+            price: 0,
+            cost: 0,
+            stock: 0,
+            category_id: null,
+        })
 
     const handleOnChange = (event) => {
-        setData(event.target.name, event.target.type === 'checkbox' ? (event.target.checked ? 1 : 0) : event.target.value);
+        setData(
+            event.target.name,
+            event.target.type === 'checkbox'
+                ? event.target.checked
+                    ? 1
+                    : 0
+                : event.target.value
+        )
     }
 
     const handleReset = () => {
@@ -34,14 +42,14 @@ export default function FormModal(props) {
 
     const handleSubmit = () => {
         const product = modalState.data
-        if(product !== null) {
+        if (product !== null) {
             put(route('product.update', product), {
                 onSuccess: () => handleClose(),
             })
             return
-        } 
+        }
         post(route('product.store'), {
-            onSuccess: () => handleClose()
+            onSuccess: () => handleClose(),
         })
     }
 
@@ -55,16 +63,12 @@ export default function FormModal(props) {
                 stock: product.stock,
                 category_id: product.category_id,
             })
-            return 
+            return
         }
     }, [modalState])
 
     return (
-        <Modal
-            isOpen={modalState.isOpen}
-            toggle={handleClose}
-            title={"Barang"}
-        >
+        <Modal isOpen={modalState.isOpen} toggle={handleClose} title={'Produk'}>
             <FormInput
                 name="name"
                 value={data.name}
@@ -103,16 +107,10 @@ export default function FormModal(props) {
                 error={errors.category_id}
             />
             <div className="flex items-center">
-                <Button
-                    onClick={handleSubmit}
-                    processing={processing} 
-                >
+                <Button onClick={handleSubmit} processing={processing}>
                     Simpan
                 </Button>
-                <Button
-                    onClick={handleClose}
-                    type="secondary"
-                >
+                <Button onClick={handleClose} type="secondary">
                     Batal
                 </Button>
             </div>

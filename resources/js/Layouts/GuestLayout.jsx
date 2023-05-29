@@ -1,13 +1,14 @@
-import React from 'react';
-import ApplicationLogo from '@/Components/Defaults/ApplicationLogo';
-import { Link } from '@inertiajs/react';
+import React from 'react'
+import logo from '@/Assets/logo.jpeg'
+import ApplicationLogo from '@/Components/Defaults/ApplicationLogo'
+import { Link } from '@inertiajs/react'
 
 export default function Guest({ children }) {
     return (
         <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
             <div>
                 <Link href="/">
-                    <ApplicationLogo className="w-auto h-20 fill-current text-gray-500 text-5xl font-bold" />
+                    <img src={logo} alt="app logo" className="w-48 h-48" />
                 </Link>
             </div>
 
@@ -15,5 +16,5 @@ export default function Guest({ children }) {
                 {children}
             </div>
         </div>
-    );
+    )
 }

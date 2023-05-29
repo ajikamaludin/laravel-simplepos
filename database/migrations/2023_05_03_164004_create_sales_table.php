@@ -17,6 +17,7 @@ return new class extends Migration
             $table->timestamp('date')->nullable();
             $table->uuid('customer_id')->nullable();
             $table->decimal('total', 14, 2)->default(0);
+            $table->text('note')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();

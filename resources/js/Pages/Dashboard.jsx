@@ -36,10 +36,17 @@ export default function Dashboard(props) {
         favorite_categories,
         month,
         total_sale_month,
+        targets,
     } = props
 
     const options = {
         responsive: true,
+        scales: {
+            x: {},
+            x2: {
+                display: false,
+            },
+        },
     }
 
     const data = {
@@ -50,21 +57,20 @@ export default function Dashboard(props) {
             {
                 label: 'Penjualan',
                 data: sale_days.map((item) => item.stotal),
-                // backgroundColor: 'rgb(87, 13, 248, 0.5)', //rgb(87, 13, 248, 0.5) //rgba(255, 99, 132, 0.5)
-                backgroundColor: [
-                    // 'rgba(201, 203, 207, 1)',
-                    // 'rgba(255, 159, 64, 1)',
-                    'rgba(255, 205, 86, 1)',
-                    // 'rgba(75, 192, 192, 1)',
-                    // 'rgba(54, 162, 235, 1)',
-                    // 'rgba(153, 102, 255, 1)',
-                    // 'rgba(255, 99, 132, 1)',
-                ],
+                backgroundColor: ['rgba(255, 205, 86, 1)'],
+            },
+            {
+                label: 'Target',
+                data: targets,
+                backgroundColor: ['rgba(200, 30, 30, 1)'],
+                xAxisID: 'x2',
             },
         ],
     }
 
-    const names = favorite_categories.map((c) => `${c.product.name} - ${c.qty}`)
+    const names = favorite_categories.map(
+        (c) => `${c.product.category.name} - ${c.qty}`
+    )
     const count = favorite_categories.map((c) => c.qty)
     const dataDounat = {
         labels: names,
@@ -134,7 +140,7 @@ export default function Dashboard(props) {
             <Head title="Dashboard" />
 
             <div>
-                <div className="mx-auto sm:px-6 lg:px-8 ">
+                <div className="mx-auto sm:px-6 lg:px-8">
                     <div className="px-2 w-full grid grid-cols-2 md:grid-cols-4 gap-2">
                         <div className="p-4 overflow-hidden shadow sm:rounded-lg bg-white">
                             <div className="text-xl">
@@ -182,9 +188,10 @@ export default function Dashboard(props) {
                                 className="max-h-96"
                             />
                         </div>
-                        <div className="overflow-auto bg-white p-4">
+                        <div className="overflow-auto bg-white p-4 max-w-sm">
                             <div className="text-xl pb-4">
-                                Produk Paling laku terjual
+                                Kategori Produk yang laku Terjual pada Bulan{' '}
+                                {month}
                             </div>
                             <Doughnut
                                 data={dataDounat}
@@ -194,7 +201,7 @@ export default function Dashboard(props) {
                     </div>
                     {/* list produk paling laris dengan jumlah penjualan */}
                     <div className="overflow-auto bg-white p-4 mt-4">
-                        <div className="text-xl pb-4">Barang Terlaris</div>
+                        <div className="text-xl pb-4">Produk Terlaris</div>
                         <div>
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -203,7 +210,7 @@ export default function Dashboard(props) {
                                             Kode
                                         </th>
                                         <th scope="col" className="py-3 px-6">
-                                            Barang
+                                            Produk
                                         </th>
                                         <th scope="col" className="py-3 px-6">
                                             Jumlah

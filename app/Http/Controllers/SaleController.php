@@ -63,7 +63,8 @@ class SaleController extends Controller
             'customer_id' => 'nullable|exists:customers,id',
             'items' => 'required|array',
             'items.*.id' => 'required|exists:products,id',
-            'items.*.qty' => 'required|numeric'
+            'items.*.qty' => 'required|numeric',
+            'note' => 'nullable|string'
         ]);
 
         DB::beginTransaction();
@@ -75,7 +76,8 @@ class SaleController extends Controller
             'code' => $code,
             'date' => $request->date,
             'customer_id' => $request->customer_id,
-            'total' => collect($request->items)->sum(fn ($item) => $item['qty'] * $item['price'])
+            'total' => collect($request->items)->sum(fn ($item) => $item['qty'] * $item['price']),
+            'note' => $request->note,
         ]);
 
         foreach ($request->items as $item) {

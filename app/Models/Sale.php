@@ -11,12 +11,13 @@ class Sale extends Model
         'code',
         'date',
         'customer_id',
-        'total'
+        'total',
+        'note'
     ];
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class)->withTrashed();
     }
 
     public function items()

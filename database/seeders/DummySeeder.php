@@ -17,23 +17,44 @@ class DummySeeder extends Seeder
      */
     public function run()
     {
-        foreach(['makanan', 'minuman'] as $cat) {
+        foreach (['makanan', 'minuman'] as $cat) {
             $category = Category::create(['name' => $cat]);
         }
 
-        foreach([
-            'Roti Tawar', 
-            'Indomie', 
+        $products = [
+            'Roti Tawar',
+            'Indomie',
             'Telur Omega 3',
             'Enervonche',
-            'Teh Olong'
-        ] as $prod) {
+            'Teh Olong',
+            'Teh Celup',
+            'Bakpi',
+            'Multivitamin',
+            'Kopi Kapal Api',
+            'White Kopi',
+            'Coklat',
+            'Perment',
+            'Galon',
+            'Sabun',
+            'Jam',
+            'Minyak Goreng',
+            'Tissue',
+            'Tissue Basah',
+            'Sandal',
+            'Payung',
+            'Handwash',
+            'Beras',
+            'Kaos',
+            'Sepatu',
+            'Obat Nyamuk'
+        ];
+        foreach ($products as $prod) {
             Product::create([
                 'code' => Str::upper(Str::random(6)),
                 'name' => $prod,
-                'price' => rand(1000,10000),
-                'cost' => rand(1000,10000),
-                'stock' => rand(1,99),
+                'price' => rand(1000, 10000),
+                'cost' => rand(1000, 10000),
+                'stock' => rand(1, 99),
                 'category_id' => $category->id,
             ]);
         }

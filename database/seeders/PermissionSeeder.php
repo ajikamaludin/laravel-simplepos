@@ -52,6 +52,8 @@ class PermissionSeeder extends Seeder
             ['id' => Str::uuid(), 'label' => 'Delete Sale', 'name' => 'delete-sale'],
 
             ['id' => Str::uuid(), 'label' => 'View Setting', 'name' => 'view-setting'],
+
+            ['id' => Str::uuid(), 'label' => 'View Invoice', 'name' => 'view-invoice'],
         ];
 
         foreach ($permissions as $permission) {

@@ -74,7 +74,7 @@
             </div>
             <div class="w-1/2">
                 <div class="invisible">KETERANGAN</div>
-                <table class="border-2 border-black w-full h-[132px]">
+                <table class="border-2 border-black w-full h-[132px] invisible">
                     <tbody>
                         <tr>
                             <td class="p-1"></td>
@@ -152,11 +152,11 @@
                     <tr>
                         <td class="p-2 font-bold">PESAN</td>
                     </tr>
-                    <tr class="border-b border-black">
-                        <td class="p-4"></td>
+                    <tr>
+                        <td class="px-2 pb-2">{{ $sale->note }}</td>
                     </tr>
                     <tr>
-                        <td class="p-2">TERBILANG</td>
+                        <td class="p-2"></td>
                     </tr>
                     <tr>
                         <td class="p-4"></td>

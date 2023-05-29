@@ -72,6 +72,7 @@ export default function Sale(props) {
     const canCreate = hasPermission(auth, 'create-sale')
     const canUpdate = hasPermission(auth, 'update-sale')
     const canDelete = hasPermission(auth, 'delete-sale')
+    const canViewInvoice = hasPermission(auth, 'view-invoice')
 
     return (
         <AuthenticatedLayout
@@ -177,16 +178,18 @@ export default function Sale(props) {
                                                     {formatIDR(sale.total)}
                                                 </td>
                                                 <td>
-                                                    <a
-                                                        href={route(
-                                                            'sale.invoice',
-                                                            sale
-                                                        )}
-                                                        target="_blank"
-                                                        className="text-blue-600 underline"
-                                                    >
-                                                        Invoice
-                                                    </a>
+                                                    {canViewInvoice && (
+                                                        <a
+                                                            href={route(
+                                                                'sale.invoice',
+                                                                sale
+                                                            )}
+                                                            target="_blank"
+                                                            className="text-blue-600 underline"
+                                                        >
+                                                            Invoice
+                                                        </a>
+                                                    )}
                                                 </td>
                                                 <td className="py-4 px-6 flex justify-end">
                                                     <Dropdown
