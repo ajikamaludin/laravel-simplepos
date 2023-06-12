@@ -142,7 +142,7 @@ export default function Dashboard(props) {
 
             <div>
                 <div className="mx-auto sm:px-6 lg:px-8">
-                    <div className="px-2 w-full grid grid-cols-2 md:grid-cols-4 gap-2">
+                    <div className="px-2 w-full grid grid-cols-2 lg:grid-cols-4 gap-2">
                         <div className="p-4 overflow-hidden shadow sm:rounded-lg bg-white">
                             <div className="text-xl">
                                 Target Penjualan <br />
@@ -181,8 +181,8 @@ export default function Dashboard(props) {
                         </div>
                     </div>
                     {/* Chart : jumlah transaksi 7 hari terkahir */}
-                    <div className="w-full flex flex-row mt-4 space-x-2">
-                        <div className="flex-1 overflow-auto bg-white p-4">
+                    <div className="w-full flex flex-col lg:flex-row mt-4 gap-2">
+                        <div className="w-full overflow-auto bg-white p-4">
                             <div className="text-xl pb-4">
                                 Penjualan 7 Hari Terakhir
                             </div>
@@ -192,7 +192,7 @@ export default function Dashboard(props) {
                                 className="max-h-96"
                             />
                         </div>
-                        <div className="overflow-auto bg-white p-4 max-w-sm">
+                        <div className="w-full overflow-auto bg-white p-4 lg:max-w-sm">
                             <div className="text-xl pb-4">
                                 Kategori Produk yang laku Terjual pada Bulan{' '}
                                 {month}

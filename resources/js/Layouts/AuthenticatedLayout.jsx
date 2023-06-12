@@ -24,10 +24,6 @@ export default function Authenticated({
         }
     }, [flash])
 
-    console.log(
-        'APLIKASI INI DIJUAL DENGAN HARGA 1JT RUPIAH, JIKA DIJUAL LEBIH MAHAL SILAHKAN HUBUNGI KREATOR DI +6281325307692 (WA)'
-    )
-
     return (
         <div
             className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-700"
