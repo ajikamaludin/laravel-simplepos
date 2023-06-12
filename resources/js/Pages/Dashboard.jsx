@@ -37,6 +37,7 @@ export default function Dashboard(props) {
         month,
         total_sale_month,
         targets,
+        target,
     } = props
 
     const options = {
@@ -144,6 +145,15 @@ export default function Dashboard(props) {
                     <div className="px-2 w-full grid grid-cols-2 md:grid-cols-4 gap-2">
                         <div className="p-4 overflow-hidden shadow sm:rounded-lg bg-white">
                             <div className="text-xl">
+                                Target Penjualan <br />
+                                Bulan {month}
+                            </div>
+                            <div className="text-3xl font-bold">
+                                Rp. {formatIDR(target)}
+                            </div>
+                        </div>
+                        <div className="p-4 overflow-hidden shadow sm:rounded-lg bg-white">
+                            <div className="text-xl">
                                 Total Penjualan <br />
                                 Bulan {month}
                             </div>
@@ -153,7 +163,7 @@ export default function Dashboard(props) {
                         </div>
                         <div className="p-4 overflow-hidden shadow sm:rounded-lg bg-white">
                             <div className="text-xl">
-                                Total Barang Terjual <br />
+                                Total Penjualan <br />
                                 Hari Ini
                             </div>
                             <div className="text-3xl font-bold">
@@ -162,17 +172,11 @@ export default function Dashboard(props) {
                         </div>
                         <div className="p-4 overflow-hidden shadow sm:rounded-lg bg-white">
                             <div className="text-xl">
-                                Jumlah Barang Terjual <br />
+                                Jumlah Produk Terjual <br />
                                 Hari Ini
                             </div>
                             <div className="text-3xl font-bold">
                                 {total_item_today}
-                            </div>
-                        </div>
-                        <div className="p-4 overflow-hidden shadow sm:rounded-lg bg-white">
-                            <div className="text-xl">Jumlah Pelanggan</div>
-                            <div className="text-3xl font-bold">
-                                {total_customer}
                             </div>
                         </div>
                     </div>
@@ -271,7 +275,7 @@ export default function Dashboard(props) {
                                                     : 'Umum'}
                                             </td>
                                             <td className="py-4 px-6">
-                                                {formatIDR(customer.stotal)}
+                                                Rp. {formatIDR(customer.stotal)}
                                             </td>
                                         </tr>
                                     ))}

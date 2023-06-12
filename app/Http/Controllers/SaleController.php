@@ -94,7 +94,7 @@ class SaleController extends Controller
                 DB::rollBack();
 
                 return redirect()->back()
-                    ->with('message', ['type' => 'error', 'message' => 'Stok barang tidak cukup']);
+                    ->with('message', ['type' => 'error', 'message' => 'Stok produk tidak cukup']);
             }
             $product->update(['stock' => $stock]);
         }

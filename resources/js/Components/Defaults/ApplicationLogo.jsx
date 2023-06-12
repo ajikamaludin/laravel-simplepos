@@ -1,10 +1,9 @@
+import { usePage } from '@inertiajs/react'
 import React from 'react'
 
 export default function ApplicationLogo({ className }) {
-    return (
-        <h1 className={className}>
-            {' '}
-            Sistem Informasi Penjualan PT. Maju Jaya Kreasindo
-        </h1>
-    )
+    const {
+        props: { app_name },
+    } = usePage()
+    return <h1 className={className}> {app_name}</h1>
 }

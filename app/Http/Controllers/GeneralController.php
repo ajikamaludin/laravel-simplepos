@@ -42,7 +42,8 @@ class GeneralController extends Controller
             ->orderBy('date', 'asc')
             ->groupBy('date')
             ->get();
-        $target = (Setting::where('key', 'target')->value('value') ?? 90000) / 30;
+        $originTarget = (Setting::where('key', 'target')->value('value') ?? 90000);
+        $target = $originTarget / 30;
 
         $dounat = SaleItem::selectRaw('product_id, category_id, SUM(quantity) as qty')
             ->with('product.category')
@@ -79,7 +80,8 @@ class GeneralController extends Controller
             'list_customer' => $transactionCustomers,
             'month' => now()->locale('id')->translatedFormat('F'),
             'total_sale_month' => $totalSaleMonth,
-            'targets' => [$target, $target, $target, $target, $target, $target, $target, $target]
+            'targets' => [$target, $target, $target, $target, $target, $target, $target, $target],
+            'target' => $originTarget,
         ]);
     }
 
