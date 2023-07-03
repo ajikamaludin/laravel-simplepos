@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Services\GeneralService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -17,7 +18,7 @@ class ProductController extends Controller
         }
 
         $query->orderBy('created_at', 'desc');
-        
+
         return inertia('Product/Index', [
             'query' => $query->paginate(10),
         ]);
@@ -31,15 +32,17 @@ class ProductController extends Controller
             'cost' => 'required|numeric|min:1',
             'stock' => 'required|numeric|min:1',
             'category_id' => 'required|exists:categories,id',
+            'is_active' => 'required|in:0,1',
         ]);
 
         Product::create([
-            'code' => Str::upper(Str::random(6)),
+            'code' => 'PO-' . GeneralService::formatNum(Product::count() + 1),
             'name' => $request->name,
             'price' => $request->price,
             'cost' => $request->cost,
             'stock' => $request->stock,
             'category_id' => $request->category_id,
+            'is_active' => $request->is_active,
         ]);
 
         return redirect()->route('product.index')
@@ -54,6 +57,7 @@ class ProductController extends Controller
             'cost' => 'required|numeric|min:1',
             'stock' => 'required|numeric|min:1',
             'category_id' => 'required|exists:categories,id',
+            'is_active' => 'required|in:0,1',
         ]);
 
         $product->update([
@@ -62,6 +66,7 @@ class ProductController extends Controller
             'cost' => $request->cost,
             'stock' => $request->stock,
             'category_id' => $request->category_id,
+            'is_active' => $request->is_active,
         ]);
 
         return redirect()->route('product.index')

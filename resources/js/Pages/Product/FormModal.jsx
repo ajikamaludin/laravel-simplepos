@@ -16,6 +16,7 @@ export default function FormModal(props) {
             cost: 0,
             stock: 0,
             category_id: null,
+            is_active: 0,
         })
 
     const handleOnChange = (event) => {
@@ -62,6 +63,7 @@ export default function FormModal(props) {
                 cost: product.cost,
                 stock: product.stock,
                 category_id: product.category_id,
+                is_active: product.is_active,
             })
             return
         }
@@ -106,6 +108,23 @@ export default function FormModal(props) {
                 onItemSelected={(id) => setData('category_id', id)}
                 error={errors.category_id}
             />
+            <div className="mt-4">
+                <div className="mb-1 text-sm">Status</div>
+                <select
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    onChange={handleOnChange}
+                    value={data.is_active}
+                    name="is_active"
+                >
+                    <option value="0">Aktif</option>
+                    <option value="1">Tidak Aktif</option>
+                </select>
+                {errors.is_active && (
+                    <p className="mb-2 text-sm text-red-600 dark:text-red-500">
+                        {errors.is_active}
+                    </p>
+                )}
+            </div>
             <div className="flex items-center">
                 <Button onClick={handleSubmit} processing={processing}>
                     Simpan

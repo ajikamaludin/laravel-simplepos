@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('cost', 14, 2)->default(0);
             $table->decimal('stock', 14, 2)->default(0);
             $table->uuid('category_id')->nullable();
+            $table->smallInteger('is_active')->default(0);
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by')->nullable();

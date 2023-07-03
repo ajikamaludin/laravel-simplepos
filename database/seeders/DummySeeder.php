@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Services\GeneralService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -48,9 +49,9 @@ class DummySeeder extends Seeder
             'Sepatu',
             'Obat Nyamuk'
         ];
-        foreach ($products as $prod) {
+        foreach ($products as $index => $prod) {
             Product::create([
-                'code' => Str::upper(Str::random(6)),
+                'code' =>  'PO-' . GeneralService::formatNum($index + 1),
                 'name' => $prod,
                 'price' => rand(1000, 10000),
                 'cost' => rand(1000, 10000),
@@ -59,9 +60,9 @@ class DummySeeder extends Seeder
             ]);
         }
 
-        foreach (['Customer A', 'Customer B'] as $cust) {
+        foreach (['Customer A', 'Customer B'] as $index => $cust) {
             Customer::create([
-                'code' => Str::upper(Str::random(6)),
+                'code' => 'PE-' . GeneralService::formatNum($index + 1),
                 'name' => $cust,
             ]);
         }

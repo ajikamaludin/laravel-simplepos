@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Services\GeneralService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -17,7 +18,7 @@ class CustomerController extends Controller
         }
 
         $query->orderBy('created_at', 'desc');
-        
+
         return inertia('Customer/Index', [
             'query' => $query->paginate(10),
         ]);
@@ -32,7 +33,7 @@ class CustomerController extends Controller
         ]);
 
         Customer::create([
-            'code' => Str::upper(Str::random(6)),
+            'code' =>  'PE-' . GeneralService::formatNum(Customer::count() + 1),
             'name' => $request->name,
             'phone' => $request->phone,
             'address' => $request->address,

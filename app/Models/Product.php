@@ -4,6 +4,10 @@ namespace App\Models;
 
 class Product extends Model
 {
+    const ACTIVE = 0;
+
+    const INACTIVE = 1;
+
     protected $fillable = [
         'code',
         'name',
@@ -11,6 +15,7 @@ class Product extends Model
         'cost',
         'stock',
         'category_id',
+        'is_active'
     ];
 
     public function category()

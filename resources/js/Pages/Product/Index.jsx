@@ -109,6 +109,12 @@ export default function Product(props) {
                                                 scope="col"
                                                 className="py-3 px-6"
                                             >
+                                                Status
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="py-3 px-6"
+                                            >
                                                 Kategori
                                             </th>
                                             <th
@@ -149,6 +155,16 @@ export default function Product(props) {
                                                 </td>
                                                 <td className="py-4 px-6">
                                                     {product.name}
+                                                </td>
+                                                <td className="py-4 px-6">
+                                                    <div
+                                                        className={`w-5 h-5 rounded-full  mx-auto ${
+                                                            +product.is_active ===
+                                                            0
+                                                                ? 'bg-green-500'
+                                                                : 'bg-red-500'
+                                                        }`}
+                                                    ></div>
                                                 </td>
                                                 <td className="py-4 px-6">
                                                     {product.category.name}

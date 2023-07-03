@@ -105,8 +105,8 @@ export default function Sale(props) {
             <Head title="Penjualan" />
 
             <div className="mx-auto sm:px-6 lg:px-8 w-full">
-                <div className="flex flex-row p-6 shadow-sm sm:rounded-lg bg-white w-full space-x-2">
-                    <div className="w-full md:w-7/12">
+                <div className="flex flex-col lg:flex-row p-6 shadow-sm sm:rounded-lg bg-white w-full gap-2">
+                    <div className="w-full lg:w-7/12">
                         <div className="mb-4">
                             <SearchInput
                                 onChange={(e) => setSearch(e.target.value)}
@@ -118,15 +118,18 @@ export default function Sale(props) {
                                 <Spinner size="xl" />
                             </div>
                         ) : (
-                            <div className="grid grid-cols-4 gap-2 text-center h-[320px]">
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 text-center min-h-[320px]">
                                 {products.map((item) => (
                                     <div
-                                        className="rounded bg-gray-300 hover:bg-gray-200 shadow-lg px-4 py-2 flex flex-col justify-between"
+                                        className="rounded bg-gray-200 hover:bg-gray-300 shadow-lg px-4 py-2 flex flex-col gap-1 justify-between"
                                         key={item.id}
                                         onClick={() => addItem(item)}
                                     >
-                                        <div className="font-bold">
+                                        <div className="text-base">
                                             {item.name}
+                                        </div>
+                                        <div className="font-bold">
+                                            ({item.code})
                                         </div>
                                         <div className="rounded-md bg-gray-800 p-0.5 text-white">
                                             Rp. {formatIDR(item.price)}
@@ -151,7 +154,7 @@ export default function Sale(props) {
                             />
                         </div>
                     </div>
-                    <div className="w-full md:w-5/12 flex flex-col">
+                    <div className="w-full lg:w-5/12 flex flex-col">
                         <CustomerSelectionInput
                             placeholder="Pelanggan"
                             itemSelected={data.customer_id}
