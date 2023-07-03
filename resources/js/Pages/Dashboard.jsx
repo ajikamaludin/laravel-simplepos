@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import { formatIDR } from '@/utils'
 import {
     Chart as ChartJS,
@@ -13,7 +13,11 @@ import {
     Legend,
 } from 'chart.js'
 import { Bar, Doughnut } from 'react-chartjs-2'
+import { BiSortAlt2 } from 'react-icons/bi'
 import moment from 'moment'
+import FormInputDateRanger from '@/Components/FormInputDateRange'
+import { usePrevious } from 'react-use'
+import SearchInput from '@/Components/SearchInput'
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -26,11 +30,14 @@ ChartJS.register(
 
 export default function Dashboard(props) {
     const {
-        total_sale_today,
         total_item_today,
         total_item_price_today,
-        total_customer,
         sale_days,
+        _startDate,
+        _endDate,
+        _order,
+        _p_q,
+        _c_q,
         list_favorite_product,
         list_customer,
         favorite_categories,
@@ -39,6 +46,14 @@ export default function Dashboard(props) {
         targets,
         target,
     } = props
+
+    const [dates, setDates] = useState({
+        startDate: _startDate,
+        endDate: _endDate,
+    })
+    const [order, setOrder] = useState(_order)
+    const [p_q, setPq] = useState(_p_q)
+    const [c_q, setCq] = useState(_c_q)
 
     const options = {
         responsive: true,
@@ -130,6 +145,32 @@ export default function Dashboard(props) {
         },
     }
 
+    const preValue = usePrevious({
+        dates,
+        order,
+        c_q,
+        p_q,
+    })
+
+    useEffect(() => {
+        if (preValue) {
+            router.get(
+                route(route().current()),
+                {
+                    start_date: dates.startDate,
+                    end_date: dates.endDate,
+                    order,
+                    c_q,
+                    p_q,
+                },
+                {
+                    replace: true,
+                    preserveState: true,
+                }
+            )
+        }
+    }, [dates, order, c_q, p_q])
+
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -183,8 +224,23 @@ export default function Dashboard(props) {
                     {/* Chart : jumlah transaksi 7 hari terkahir */}
                     <div className="w-full flex flex-col lg:flex-row mt-4 gap-2">
                         <div className="w-full overflow-auto bg-white p-4">
-                            <div className="text-xl pb-4">
-                                Penjualan 7 Hari Terakhir
+                            <div className="flex flex-row justify-between">
+                                <div className="text-xl pb-4">
+                                    Penjualan 7 Hari Terakhir
+                                </div>
+                                <div className="flex flex-row gap-1 items-center">
+                                    <div className="px-1 py-1 bg-gray-200 rounded mb-1">
+                                        <BiSortAlt2 className="h-8 w-8" />
+                                    </div>
+                                    <div>
+                                        <FormInputDateRanger
+                                            selected={dates}
+                                            onChange={(dates) =>
+                                                setDates(dates)
+                                            }
+                                        />
+                                    </div>
+                                </div>
                             </div>
                             <Bar
                                 options={options}
@@ -205,7 +261,25 @@ export default function Dashboard(props) {
                     </div>
                     {/* list produk paling laris dengan jumlah penjualan */}
                     <div className="overflow-auto bg-white p-4 mt-4">
-                        <div className="text-xl pb-4">Produk Terlaris</div>
+                        <div className="flex flex-row justify-between mb-2">
+                            <div className="text-xl pb-4">Produk Terlaris</div>
+                            <div className="flex flex-row gap-1">
+                                <div
+                                    className="px-1 py-1 bg-gray-200 rounded mb-1"
+                                    onClick={() =>
+                                        setOrder(
+                                            order === 'asc' ? 'desc' : 'asc'
+                                        )
+                                    }
+                                >
+                                    <BiSortAlt2 className="h-8 w-8" />
+                                </div>
+                                <SearchInput
+                                    value={p_q}
+                                    onChange={(e) => setPq(e.target.value)}
+                                />
+                            </div>
+                        </div>
                         <div>
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -247,7 +321,27 @@ export default function Dashboard(props) {
                     </div>
                     {/* list customer yang bertransaksi dengan total transaksi */}
                     <div className="overflow-auto bg-white p-4 mt-4">
-                        <div className="text-xl pb-4">Pelanggan Hari Ini</div>
+                        <div className="flex flex-row justify-between mb-2">
+                            <div className="text-xl pb-4">
+                                Pelanggan Hari Ini
+                            </div>
+                            <div className="flex flex-row gap-1">
+                                <div
+                                    className="px-1 py-1 bg-gray-200 rounded mb-1"
+                                    onClick={() =>
+                                        setOrder(
+                                            order === 'asc' ? 'desc' : 'asc'
+                                        )
+                                    }
+                                >
+                                    <BiSortAlt2 className="h-8 w-8" />
+                                </div>
+                                <SearchInput
+                                    value={c_q}
+                                    onChange={(e) => setCq(e.target.value)}
+                                />
+                            </div>
+                        </div>
                         <div>
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

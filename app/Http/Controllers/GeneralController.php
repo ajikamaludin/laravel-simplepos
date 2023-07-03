@@ -37,13 +37,30 @@ class GeneralController extends Controller
             $endDate = Carbon::parse($request->end_date)->format('m/d/Y');
         }
 
-        $charts = Sale::selectRaw('SUM(total) as stotal, date')
-            ->whereBetween('date', [$startDate, $endDate])
-            ->orderBy('date', 'asc')
-            ->groupBy('date')
-            ->get();
+        $targets = [];
+
         $originTarget = (Setting::where('key', 'target')->value('value') ?? 90000);
         $target = $originTarget / 30;
+
+        $c = [];
+        $order = 'asc';
+        if ($request->order != '') {
+            $order = $request->order;
+        }
+        $charts = Sale::selectRaw('SUM(total) as stotal, date')
+            ->whereBetween('date', [$startDate, $endDate])
+            ->orderBy('date', $order)
+            ->groupBy('date')
+            ->get();
+
+        $date = Carbon::parse($startDate);
+        while ($date <= Carbon::parse($endDate)) {
+            $total = $charts->where('date', $date->format('m/d/Y'))->value('stotal') ?? 0;
+            $c[] = ['stotal' => $total, 'date' => $date->format('m/d/Y')];
+            $date = $date->addDay();
+
+            $targets[] = $target;
+        }
 
         $dounat = SaleItem::selectRaw('product_id, category_id, SUM(quantity) as qty')
             ->with('product.category')
@@ -57,30 +74,52 @@ class GeneralController extends Controller
         $favoriteProducts = SaleItem::selectRaw('product_id, sum(quantity) as qty')
             ->with('product')
             ->join('sales', 'sales.id', '=', 'sale_items.sale_id')
+            ->join('products', 'products.id', '=', 'sale_items.product_id')
             ->whereBetween('sales.date', [now()->startOfMonth()->format('m/d/Y'), now()->endOfMonth()->format('m/d/Y')])
-            ->orderBy('qty', 'desc')
-            ->groupBy('product_id')
-            ->get();
+            ->orderBy('qty', $order)
+            ->groupBy('product_id');
+
+        if ($request->p_q != '') {
+            $favoriteProducts->where(function ($query) use ($request) {
+                $query->where('products.name', 'like', "%$request->p_q%")
+                    ->orWhere('products.code', 'like', "%$request->p_q%");
+            });
+        }
+
+        $favoriteProducts = $favoriteProducts->get();
 
         $transactionCustomers = Sale::selectRaw('customer_id, sum(total) as stotal')
+            ->join('customers', 'customers.id', '=', 'sales.customer_id')
             ->where('date', now()->format('m/d/Y'))
             ->groupBy('customer_id')
-            ->orderBy('stotal')
-            ->with('customer')
-            ->get();
+            ->orderBy('stotal', $order)
+            ->with('customer');
+
+        if ($request->c_q != '') {
+            $transactionCustomers->where(function ($query) use ($request) {
+                $query->where('customers.name', 'like', "%$request->c_q%");
+            });
+        }
+
+        $transactionCustomers = $transactionCustomers->get();
 
         return inertia('Dashboard', [
             'total_sale_today' => $totalSaleToday,
             'total_item_today' => $totalItem,
             'total_item_price_today' => $totalItemPrice,
             'total_customer' => $totalCustomer,
-            'sale_days' => $charts,
+            'sale_days' => $c,
+            '_startDate' => $startDate,
+            '_endDate' => $endDate,
+            '_order' => $order,
+            '_c_q' => $request->c_q,
+            '_p_q' => $request->p_q,
             'favorite_categories' => $dounat,
             'list_favorite_product' => $favoriteProducts,
             'list_customer' => $transactionCustomers,
             'month' => now()->locale('id')->translatedFormat('F'),
             'total_sale_month' => $totalSaleMonth,
-            'targets' => [$target, $target, $target, $target, $target, $target, $target, $target],
+            'targets' => $targets,
             'target' => $originTarget,
         ]);
     }
