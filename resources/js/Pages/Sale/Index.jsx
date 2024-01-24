@@ -88,6 +88,7 @@ export default function Sale(props) {
                 <div className="mx-auto sm:px-6 lg:px-8 ">
                     <div className="p-6 overflow-hidden shadow-sm sm:rounded-lg bg-gray-200 dark:bg-gray-800 space-y-4">
                         <div className="flex justify-between">
+                            <div>
                             {canCreate && (
                                 <Button
                                     size="sm"
@@ -96,6 +97,7 @@ export default function Sale(props) {
                                     Tambah
                                 </Button>
                             )}
+                            </div>
                             <div className="flex flex-col items-center space-y-1">
                                 <SearchInput
                                     onChange={(e) => setSearch(e.target.value)}
